@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -55,9 +56,9 @@ public class User {
     }
 
     public User(String username, String password, @Email String primaryemail, List<UserRoles> userroles) {
-        this.username = username;
+        setUsername(username);
         this.primaryemail = primaryemail;
-        this.password = password;
+        setPassword(password);
         this.userroles = userroles;
     }
 
@@ -113,9 +114,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) {BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password); }
 
     public void setPasswordNoEncrypt(String password)
     {

@@ -122,59 +122,59 @@ public class UserServiceImpl implements UserService,
         return userrepos.save(newUser);
     }
 
-//    @Transactional
-//    @Override
-//    public User update(User user,
-//                       long id,
-//                       boolean isAdmin)
-//    {
-//        Authentication authentication = SecurityContextHolder.getContext()
-//                .getAuthentication();
-//
-//        User authenticatedUser = userrepos.findByUsername(authentication.getName());
-//
-//        if (id == authenticatedUser.getUserid() || isAdmin)
-//        {
-//            User currentUser = findUserById(id);
-//
-//            if (user.getUsername() != null)
-//            {
-//                currentUser.setUsername(user.getUsername());
-//            }
-//
-//            if (user.getPassword() != null)
-//            {
-//                currentUser.setPasswordNoEncrypt(user.getPassword());
-//            }
-//
-//            if (user.getPrimaryemail() != null)
-//            {
-//                currentUser.setPrimaryemail(user.getPrimaryemail());
-//            }
-//
-//            if (user.getUserroles()
-//                    .size() > 0)
-//            {
-//                throw new EntityNotFoundException("User Roles are not updated through User. See endpoint POST: users/user/{userid}/role/{roleid}");
-//            }
-//
-//            if (user.getUseremails()
-//                    .size() > 0)
-//            {
-//                for (Useremail ue : user.getUseremails())
-//                {
-//                    currentUser.getUseremails()
-//                            .add(new Useremail(currentUser,
-//                                    ue.getUseremail()));
-//                }
-//            }
-//
-//            return userrepos.save(currentUser);
-//        } else
-//        {
-//            throw new EntityNotFoundException(id + " Not current user");
-//        }
-//    }
+    @Transactional
+    @Override
+    public User update(User user,
+                       long id,
+                       boolean isAdmin)
+    {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+
+        User authenticatedUser = userrepos.findByUsername(authentication.getName());
+
+        if (id == authenticatedUser.getUserid() || isAdmin)
+        {
+            User currentUser = findUserById(id);
+
+            if (user.getUsername() != null)
+            {
+                currentUser.setUsername(user.getUsername());
+            }
+
+            if (user.getPassword() != null)
+            {
+                currentUser.setPasswordNoEncrypt(user.getPassword());
+            }
+
+            if (user.getPrimaryemail() != null)
+            {
+                currentUser.setPrimaryemail(user.getPrimaryemail());
+            }
+
+            if (user.getUserroles()
+                    .size() > 0)
+            {
+                throw new EntityNotFoundException("User Roles are not updated through User. See endpoint POST: users/user/{userid}/role/{roleid}");
+            }
+
+            if (user.getUseremails()
+                    .size() > 0)
+            {
+                for (Useremail ue : user.getUseremails())
+                {
+                    currentUser.getUseremails()
+                            .add(new Useremail(currentUser,
+                                    ue.getUseremail()));
+                }
+            }
+
+            return userrepos.save(currentUser);
+        } else
+        {
+            throw new EntityNotFoundException(id + " Not current user");
+        }
+    }
 
     @Transactional
     @Override

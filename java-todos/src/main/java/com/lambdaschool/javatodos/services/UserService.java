@@ -23,6 +23,10 @@ public interface UserService
     void deleteUserRole(long userid,
                         long roleid);
 
+    User update(User user,
+                long id,
+                boolean isAdmin);
+
     void addUserRole(long userid,
                      long roleid);
 }
